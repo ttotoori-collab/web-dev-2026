@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flexbox Before After</title>
+  <style>
+    :root {
+      --panel-dark: #101c33;
+      --panel-border: #e5e7eb;
+      --label: #6b7280;
+      --box-1: #14b3c9;
+      --box-2: #107886;
+      --box-3: #121d36;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px 24px;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      color: #111827;
+      background: #fff;
+    }
+
+    h2 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 0 0 14px;
+    }
+
+    section + section {
+      margin-top: 36px;
+    }
+
+    /* 왼쪽 코드 / 오른쪽 미리보기 2단 구성 */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .code {
+      background: var(--panel-dark);
+      color: #f9fafb;
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin: 0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 14px;
+      line-height: 1.85;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .preview {
+      background: #fff;
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      padding: 20px 24px;
+    }
+
+    .preview-label {
+      font-size: 13px;
+      color: var(--label);
+      margin-bottom: 16px;
+    }
+
+    .box {
+      padding: 12px 18px;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .box:nth-child(1) { background: var(--box-1); }
+    .box:nth-child(2) { background: var(--box-2); }
+    .box:nth-child(3) { background: var(--box-3); }
+
+    /* Before: div는 블록 요소라 기본적으로 세로로 쌓인다 */
+    .stacked > .box + .box {
+      margin-top: 8px;
+    }
+
+    /* After: 부모에게 flex 지시 */
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .container > .box {
+      padding: 12px 20px;
+    }
+
+    @media (max-width: 720px) {
+      .split {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section>
+    <h2>Before — Flexbox 없이 (기본값)</h2>
+    <div class="split">
+      <pre class="code">&lt;div class="container"&gt;
+  &lt;div&gt;박스1&lt;/div&gt;
+  &lt;div&gt;박스2&lt;/div&gt;
+  &lt;div&gt;박스3&lt;/div&gt;
+&lt;/div&gt;</pre>
+
+      <div class="preview">
+        <p class="preview-label">브라우저 화면 (기본: 세로로 쌓임)</p>
+        <div class="stacked">
+          <div class="box">박스1</div>
+          <div class="box">박스2</div>
+          <div class="box">박스3</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>After — 부모(container)에 display: flex 적용</h2>
+    <div class="split">
+      <pre class="code">&lt;!-- HTML: 박스 3개를 감싸는 부모 --&gt;
+&lt;div class="container"&gt;
+  &lt;div&gt;박스1&lt;/div&gt;
+  &lt;div&gt;박스2&lt;/div&gt;
+  &lt;div&gt;박스3&lt;/div&gt;
+&lt;/div&gt;
+
+/* CSS: 부모에게 flex 지시 */
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}</pre>
+
+      <div class="preview">
+        <p class="preview-label">브라우저 화면</p>
+        <div class="container">
+          <div class="box">박스1</div>
+          <div class="box">박스2</div>
+          <div class="box">박스3</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
